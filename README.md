@@ -1,10 +1,6 @@
 Arduino Solenoid
 =================
-Arduinoでソレノイドアクチュエータを扱うサンプルです。
-
-## 内容
-- Solenoid_Sample
-1秒ごとにソレノイドのプランジャを引っ張るサンプルスケッチ
+[arduino.js](https://github.com/mecha-mozilla/arduino.js)でソレノイドアクチュエータを扱うサンプル。
 
 ## 配線図
 ![配線図](Solenoid_wiring.png)
