@@ -28,9 +28,13 @@ function exec(val){
     var elm = $('#btn');
     if(val === '吸引'){
         elm.val('離す');
+        elm.css('box-shadow','rgba(225, 225, 225, 0.6) 0px 0px 35px 35px');
+        elm.animate({ marginTop: '0px', marginBottom: '100px'});
         arduino.digitalWrite(SOLENOID, HIGH);
     }else{
         elm.val('吸引');
+        elm.css('box-shadow', 'none');
+        elm.animate({ marginTop: '100px', marginBottom: '0px'});
         arduino.digitalWrite(SOLENOID, LOW);
     }
 }
