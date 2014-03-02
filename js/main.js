@@ -17,13 +17,18 @@ var HIGH = 1;
 var LOW  = 0;
 
 function setup(){
-    var arduino = document.arduino;
-    arduino.open(DEV_PORT);
-    arduino.pinMode(SOLENOID, OUTPUT);
+    try{
+        with(document.arduino){
+            open(DEV_PORT);
+            pinMode(SOLENOID, OUTPUT);
+            digitalWrite(SOLENOID, LOW);
+        }
+    }catch(e){
+        alert('Connection failed!');
+    }
 }
 
 function exec(val){
-    console.log(val);
     var arduino = document.arduino;
     var elm = $('#btn');
     if(val === '吸引'){
@@ -40,27 +45,21 @@ function exec(val){
 }
 
 $(function(){
+    $('#devPort').val(DEV_PORT);
+    
     // arduino.jsインストール済みか
     if(!document.arduino){
-        alert("arduino.js Add-on is not installed.");
+        alert("arduino.js for webpages add-on is not installed.");
     }else{
         setup(); 
-        
-        $('#devPort').val(DEV_PORT);
-        
-        $(window).on("beforeunload", function() {
-            exec('離す');
-        });
     };
+    
+    $(window).on("beforeunload", function() {
+        exec('離す');
+    });
 });
 
 function changeDevicePort(){
-    var arduino = document.arduino;
-    exec('離す');
-    arduino.close();
-    try{
-        arduino.open($('#devPort').val());
-    }catch(e){
-        alert('Please try different ports.');
-    }
+    DEV_PORT = $('#devPort').val();
+    setup();
 }
